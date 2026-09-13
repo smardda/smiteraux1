@@ -1,0 +1,11 @@
+&progfiles
+ r_input_file='FW18_R.dat',
+ z_input_file='FW18_Z.dat'
+/
+&datvtkparameters
+  start_angle=-10.,
+  finish_angle=10.,
+  number_of_divisions=30
+/
+&plotselections
+/

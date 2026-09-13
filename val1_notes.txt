@@ -1,0 +1,15 @@
+mkdir val1; cd val1
+cp $HSAUX/Data/Equilibrium/16_97s.eqdsk .
+cp $HSAUX/Data/Geometry/FW[2-6].dat .
+
+eqfile=16_97s.eqdsk
+eqid=F11
+gdatshad=FW2 FW3 FW4 FW5 FW6
+gdatres=FW4
+gres=fw4t #FW4 displaced 5mm towards plasma centre
+gshad=fw264t  # 3 columns of rows 2-6, 2 displaced +-20 deg toroidally, central with fw4t
+fldspec=3 #(cyl coordinates)
+calculation_type=local
+bdry=in
+decay_length=0.05
+power_loss=5.e+6

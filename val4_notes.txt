@@ -1,0 +1,19 @@
+mkdir val4; cd val4
+cp $HSAUX/Data/Equilibrium/g900003_00230_ITER_15MA_eqdsk16HR.txt .
+for i in dome_outrefl_skeleton_july2012 FW18 beancan wdfd03_shaped_mesh10mm;do \
+cp $HSAUX/Data/Geometry/$i*.dat .; done
+
+eqfile=g900003_00230_ITER_15MA_eqdsk16HR.txt
+eqid=HR
+gdatctl=dome_outrefl_skeleton_july2012 fw18 beancan # rotate -10 10 20
+gdatres=wdfd03_shaped_mesh10mm
+gdatshad=wdfd03_shaped_mesh10mm # copy thro +-6.66667deg and 0
+gres=wdfd03_shaped_mesh10mm
+gshad=shad18
+gwall=wall
+fldspec=3 #(cyl coordinates)
+calculation_type=global
+nzetp=18 (periodic)
+bdry=out
+decl=.03
+powe=159.e+6

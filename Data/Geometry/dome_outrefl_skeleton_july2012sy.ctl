@@ -1,0 +1,11 @@
+&progfiles
+ r_input_file='dome_outrefl_skeleton_july2012_R_modif2.dat',
+ z_input_file='dome_outrefl_skeleton_july2012_Z_modif2.dat'
+/
+&datvtkparameters
+  start_angle=30.,
+  finish_angle=-30.,
+  number_of_divisions=60
+/
+&plotselections
+/

@@ -1,0 +1,10 @@
+&progfiles
+ rz_input_file='beancan_RZ.dat',
+/
+&datvtkparameters
+  start_angle=-10.,
+  finish_angle=10.,
+  number_of_divisions=30
+/
+&plotselections
+/

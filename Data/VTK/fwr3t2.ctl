@@ -1,0 +1,19 @@
+&miscparameters
+ option='panel',
+ max_number_of_panels=80,
+ max_number_of_transforms=20,
+ angle_units='degree',
+ option='tagged'
+/
+&vtkfiles
+ vtk_input_file='FW3_5mm.vtk'
+ number_of_copies=1
+ vtk_output_file='fwr3t2.vtk'
+/
+&panelarrayparameters
+      panel_bodies=1,1
+/
+&positionparameters
+      position_transform=42,  
+      position_offset=-5.,   6210.,  0.
+/

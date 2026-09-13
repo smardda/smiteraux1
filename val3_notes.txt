@@ -1,0 +1,19 @@
+mkdir val3; cd val3
+cp $HSAUX/Data/Equilibrium/VDE_DW_li0.6_715ms.eqdsk .
+for i in dome_outrefl_skeleton_july2012 FW18 beancan \
+wdpdd06_mesh30mm wdpdd06_mesh10mm_onlyfront;do \
+cp $HSAUX/Data/Geometry/$i*.dat .; done
+
+eqfile=VDE_DW_li0.6_715ms.eqdsk
+eqid=vde
+gdatctl=dome_outrefl_skeleton_july2012 fw18 beancan # rotate -10 10 20
+gdatshad=wdpdd06_mesh30mm # offset 1.4142,  0, -1.4142 (2mm at 45deg)
+#   copy offset thro +-6.66667deg, plus original in shadow (bot)
+gdatres=wdpdd06_mesh10mm_onlyfront # not offset
+gres=wdpdd06_mesh10mm_onlyfront_tfm1
+gshad=bot
+cal=global
+bdry=out
+nzetp=18 #(periodic)
+decl=0.03
+powe=159.e+6
