@@ -1,0 +1,99 @@
+Test deck 1 for SMARDDA-PFC and example files for smpfcint.
+It assumes that SMARDDA-PFC is installed in the directory
+indicated by the shell environment variable $SMITER_DIR
+and that this test-deck directory is $HSAUX. These might be set as
+export SMITER_DIR=~/smardda/pfc
+export HSAUX=~/smardda/smiteraux1
+(If these environment variables are unset, tests.bash will make a guess
+as to where smardda-pfc and the test-deck have been installed.)
+
+The test-deck should be invoked using
+./tests.bash
+which should take less than 15 minutes on a high-end laptop or desktop. 
+When no longer needed, the test-deck outputs can be removed using
+./tests_clean.bash
+When developing, it may be helpful instead to compare changes from one code version to the next.
+The scripts
+./tests_cp.bash
+./tests_cpart.bash
+will copy all or just the principal outputs to directory $HSAOLD which defaults to 
+"$HSAUX"_old, i.e. ~/smardda/smiteraux1_old
+when the outputs may be compared using 
+./tests_diff.bash
+./tests_difpart.bash
+
+There are additional cases TCV_ben_skel and trid_skel
+The idea is that these directories contain the "skeleton" files for the cases TCV_ben and trid,
+so the first step is to make copies
+cp -r TCV_ben_skel  TCV_ben; cp -r trid_skel  trid
+then 
+cd TCV_ben ; ./runRun.bash
+cd ..
+cd trid ; ./runtrid.sh
+(The trid case requires 0.5GByte 3-D magnetic field files which have to be acquired separately.)
+
+Data for the test-deck and smpfcint examples are in subdirectory Data,
+which in turn has subdirectories
+Equilibrium - eqdsk files, other equilibrium files, and 3-D vacuum field files
+Geometry - contains .dat files, and ctl files for datvtk to generate geometry from points
+(After test-deck execution, also contains log files from datvtk)
+VTK - contains vtk files used by the test-deck, mostly produced via the CADfix route, plus
+vtktfm ctl files for transforming and combining vtk files from CADfix and datvtk.
+(After test-deck execution, also contains vtk files from datvtk and vtktfm, plus vtktfm
+log files.)
+
+Notes such as a modeller might jot down, describing the geometry, equilibrium and
+other parameter settings required when using smpfcint to 
+perform the Validation Problems Cases N=1, 3 and 4 (there is no Case 2), are in files
+valN_notes.txt.
+
+The conventions applying to the outputs are documented under
+"Test-Deck" in the online SMARDDA-PFC documentation.
+
+Each case is executed using one of the .sgo files in the $SMITER_DIR/Extras directory, specifically
+tes.sgo, val1.sgo, val3.sgo and val4.sgo, with appropriate setting of the 
+parameters flds, cal, etc., understanding of which should hopefully be
+helped by the cases in the deck.  The important point for the user to note is that
+the precise run performed depends both on the inline parameters and the 
+contents of a set of skeleton .ctl files placed in the $SMITER_DIR/Extras directory.
+The main inline parameters for input to .sgo are 
+eqfile= *.eqdsk, full name of equilibrium file relative to ./Data/Equilibrium
+eqid=MNEW8, short name for equilibrium, partly defines subdirectory name
+gwall=wall, root name of silhouette file for first wall geometry helpful if $SMITER_DIR/Extras/wall.txt exists
+gdatctl=dome_..+fw18+beancan, .dat file root name with instructions to generate .vtk (NOT tes.sgo, val1.sgo)
+gdatshad=wdpdd06... .dat file, root-name to convert to shadow .vtk (NOT tes.sgo)
+gdatres=wdpdd06.... dat file, root-name to convert to results .vtk (NOT tes.sgo)
+gres=res12, name of results geometry file relative to ./Data/VTK, partly defines subdirectory name (tes.sgo)
+=baf, name of .ctl file defining results geometry relative to ./Data/VTK, partly defines subdirectory name (NOT tes.sgo)
+gshad=sha12, name of shadowing geometry file relative to ./Data/VTK, partly defines subdirectory name (tes.sgo)
+=botsy, name of .ctl file defining shadowing geometry relative to ./Data/VTK, partly defines subdirectory name (NOT tes.sgo)
+decl=0.01, set input variable  edgprofparameters - decay_length, lambda for exponential SOL 
+pow=7.5, set input variable  edgprofparameters - power_loss, total power
+vfld=testov5, root name of text file defining vacuum field (ONLY tes.sgo)
+nzetp=1, sets input variable  beqparameters - beq_nzetap, no periodicity assumed if unity (NOT tes.sgo)
+'+' is converted to space for onward processing so that eg. three .dat files are converted to .vtk for the above
+setting of gdatcl
+
+Inline parameters selecting the skeleton file name are:
+flds=1 or 3, corresponding to input variable  beqparameters - beq_fldspec
+cal=l or g, selects skeleton file name for local or global calculation
+bdry=in, out or x, selects skeleton file name for limiter or detached discharge.
+The set of skeleton .ctl files for doing outer-limited calculations in global coordinates is
+MAG.ctl -> magtfm
+RESq3out.ctl, SHADq3out.ctl ->geoq (q=U used by val1.sgo, q=V by val3/4.sgo)
+HDS3.ctl -> hdsgen
+POW3g.ctl ->powcal
+and for detached calculations is
+RES3x.ctl, SHAD3x.ctl ->  geoq
+HDS3.ctl -> hdsgen
+POW3g.ctl -> powcal
+whereas for local coordinates, the files are 
+WALL1in.ctl, RES1in.ctl SHAD1in.ctl -> geoq, inner limiter
+RESq1out.ctl SHADq1out.ctl -> geoq, outer limiter (q=U used by val1.sgo, q=V by val3/4.sgo)
+HDS1.ctl -> hdsgen
+POW1l.ctl -> powcal
+Use of local coordinates requires a certain amount of user skill in identifying
+the mapped region, which depends on equilibrium.
+
+For limiter calculations, the tes.sgo file assumes that the limit point is set by the first wall silhouette,
+whereas val1/3/4.sgo assume that the limit point is set by the shadow geometry
