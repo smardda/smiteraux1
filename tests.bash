@@ -106,3 +106,5 @@ cp $geom/mjgx9r_powx.vtk .
 cp $geom/mjgx9r.vtk .
 $INT/cmdwrap $tempdir smanal $runid
 if [ $? -ne 0 ] ; then exit 1 ;fi
+#  Create tar file containing power deposition results
+tar cvf smiteraux1.tar $(find [TV]* -name "*_powx.vtk") 
