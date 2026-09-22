@@ -4,6 +4,8 @@
 !val4_notes.txt
 !tests.bash
 !Data
+!References/
+!References/**
 !.gitignore
 !tests_clean.bash
 !tests_diff.bash
