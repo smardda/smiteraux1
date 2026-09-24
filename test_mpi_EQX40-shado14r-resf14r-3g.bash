@@ -315,7 +315,7 @@ if [[ -n "$SLURM_NTASKS" ]]; then
         "P/${gres}.ctl"
 else
     echo "Running locally with  $NP MPI processes"
-    mpiexec -np "$NP" \
+    mpiexec --oversubscribe -np "$NP" \
     "$HS/exec/smiter" \
     S/${gshad}.ctl \
     G/${gres}.ctl \
