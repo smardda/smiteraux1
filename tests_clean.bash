@@ -62,3 +62,4 @@ rm -rf  Val-vde-bot-baf
 rm -rf  Val-vde-botsy-baf
 rm -rf  Val-HR-bott-baff
 rm -rf  Val-smanal-mjg
+rm -rf  Test-EQX40-shado14r-resf14r-3g_MPI
